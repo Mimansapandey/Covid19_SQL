@@ -10,12 +10,40 @@ SELECT Location, date, total_cases, new_cases, total_deaths, population
 FROM PortfolioProject.CovidDeaths
 ORDER BY 1, 2;
 
+-- Total Cases vs Total Deaths (Death Percentage Calculation)
+SELECT Location, date, total_cases, total_deaths, 
+       (total_deaths / NULLIF(total_cases, 0)) * 100 AS DeathPercentage
+FROM PortfolioProject.CovidDeaths
+ORDER BY 1, 2;
+
+-- Country Specific Comparison
+SELECT Location, date, total_cases, total_deaths, 
+       (total_deaths / NULLIF(total_cases, 0)) * 100 AS DeathPercentage
+FROM PortfolioProject.CovidDeaths
+WHERE location LIKE '%United Kingdom%'
+ORDER BY 1, 2;
+
+-- Looking at Total Cases VS Population (Infection Rate)
+SELECT Location, date, total_cases, population, 
+       (NULLIF(total_cases, 0) / Population) * 100 AS InfectionRate
+FROM PortfolioProject.CovidDeaths
+WHERE location LIKE '%United Kingdom%'
+ORDER BY 1, 2;
+
+-- Death Percentage
+SELECT Location, date, total_deaths, population, 
+       (NULLIF(total_deaths, 0) / Population) * 100 AS DeathPercentage
+FROM PortfolioProject.CovidDeaths
+WHERE location LIKE '%United Kingdom%'
+ORDER BY 1, 2;
+
 -- Covid vaccinations
 SELECT *
-From PortfolioProject.CovidVaccinations;
+FROM PortfolioProject.CovidVaccinations;
 
+-- Checking Join Between Deaths and Vaccinations Data
 SELECT *
-From PortfolioProject.CovidDeaths dea
+FROM PortfolioProject.CovidDeaths dea
 JOIN PortfolioProject.CovidVaccinations vac
     ON dea.location = vac.location
-    and dea.date = dea.date;
+    AND dea.date = vac.date;
