@@ -128,3 +128,23 @@ SELECT * FROM PortfolioProject.CovidDeaths WHERE new_cases < 0 OR new_deaths < 0
 -- Check for unrealistic population values
 SELECT * FROM PortfolioProject.CovidDeaths WHERE population < 1000;
 
+-- Final NULL check
+SELECT 
+    SUM(CASE WHEN total_cases IS NULL THEN 1 ELSE 0 END) AS NullTotalCases,
+    SUM(CASE WHEN total_deaths IS NULL THEN 1 ELSE 0 END) AS NullTotalDeaths
+FROM PortfolioProject.CovidDeaths;
+
+SELECT 
+    SUM(CASE WHEN total_vaccinations IS NULL THEN 1 ELSE 0 END) AS NullTotalVaccinations
+FROM PortfolioProject.CovidVaccinations;
+
+-- Check final duplicate count
+SELECT date, location, COUNT(*)
+FROM PortfolioProject.CovidDeaths
+GROUP BY date, location
+HAVING COUNT(*) > 1;
+
+SELECT date, location, COUNT(*)
+FROM PortfolioProject.CovidVaccinations
+GROUP BY date, location
+HAVING COUNT(*) > 1;
