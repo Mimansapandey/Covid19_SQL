@@ -16,6 +16,24 @@ SELECT * FROM PortfolioProject.CovidVaccinations LIMIT 10;
 DESCRIBE PortfolioProject.CovidDeaths;
 DESCRIBE PortfolioProject.CovidVaccinations;
 
+SELECT 
+    MIN(total_cases) AS MinCases, 
+    MAX(total_cases) AS MaxCases, 
+    AVG(total_cases) AS AvgCases,
+    MIN(total_deaths) AS MinDeaths, 
+    MAX(total_deaths) AS MaxDeaths, 
+    AVG(total_deaths) AS AvgDeaths
+FROM PortfolioProject.CovidDeaths;
+
+SELECT 
+    MIN(total_vaccinations) AS MinVaccinations, 
+    MAX(total_vaccinations) AS MaxVaccinations, 
+    AVG(total_vaccinations) AS AvgVaccinations,
+    MIN(people_vaccinated) AS MinPeopleVaccinated, 
+    MAX(people_vaccinated) AS MaxPeopleVaccinated, 
+    AVG(people_vaccinated) AS AvgPeopleVaccinated
+FROM PortfolioProject.CovidVaccinations;
+
 -- Checking unique values in categorical columns
 SELECT DISTINCT continent FROM PortfolioProject.CovidDeaths ORDER BY continent;
 SELECT DISTINCT continent FROM PortfolioProject.CovidVaccinations ORDER BY continent;
