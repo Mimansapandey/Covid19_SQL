@@ -5,6 +5,25 @@ SELECT *
 FROM PortfolioProject.CovidDeaths
 ORDER BY 3, 4;
 
+SELECT COUNT(*) AS TotalRows FROM PortfolioProject.CovidDeaths;
+SELECT COUNT(*) AS TotalRows FROM PortfolioProject.CovidVaccinations;
+
+-- View first 10 rows
+SELECT * FROM PortfolioProject.CovidDeaths LIMIT 10;
+SELECT * FROM PortfolioProject.CovidVaccinations LIMIT 10;
+
+-- View table structure
+DESCRIBE PortfolioProject.CovidDeaths;
+DESCRIBE PortfolioProject.CovidVaccinations;
+
+-- Checking unique values in categorical columns
+SELECT DISTINCT continent FROM PortfolioProject.CovidDeaths ORDER BY continent;
+SELECT DISTINCT continent FROM PortfolioProject.CovidVaccinations ORDER BY continent;
+
+SELECT DISTINCT location FROM PortfolioProject.CovidDeaths ORDER BY location;
+SELECT DISTINCT location FROM PortfolioProject.CovidVaccinations ORDER BY location;
+SELECT DISTINCT tests_units FROM PortfolioProject.CovidVaccinations ORDER BY tests_units;
+
 -- Selecting Relevant Data
 SELECT Location, date, total_cases, new_cases, total_deaths, population
 FROM PortfolioProject.CovidDeaths
