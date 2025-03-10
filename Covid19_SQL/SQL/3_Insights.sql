@@ -25,6 +25,15 @@ WHERE continent is not NULL
 GROUP BY Location
 ORDER BY TotalDeathCount DESC
 
+-- MAX Death Count
+    
+SELECT Location, MAX(total_deaths) AS TotalDeathCount 
+FROM PortfolioProject.CovidDeaths
+WHERE continent IS NOT NULL
+GROUP BY Location
+ORDER BY TotalDeathCount DESC;
+
+
 -- Exploring Data on the basis of Continent
 
 SELECT continent, MAX(total_deaths) AS TotalDeathCount 
