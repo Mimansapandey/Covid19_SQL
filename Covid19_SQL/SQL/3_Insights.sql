@@ -41,7 +41,6 @@ WHERE continent is not NULL
 GROUP BY continent
 ORDER BY TotalDeathCount DESC
 
-
 -- Global Numbers
 SELECT 
     date, 
