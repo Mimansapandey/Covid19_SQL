@@ -8,6 +8,15 @@ FROM PortfolioProject.CovidDeaths
 GROUP BY Location, population
 ORDER BY PercentPopulationInfected DESC
 
+-- Get min, max, avg of total cases and deaths
+SELECT MIN(total_cases) FROM PortfolioProject.CovidDeaths;
+SELECT MAX(total_cases) FROM PortfolioProject.CovidDeaths;
+SELECT AVG(total_cases) FROM PortfolioProject.CovidDeaths;
+
+SELECT MIN(total_deaths) FROM PortfolioProject.CovidDeaths;
+SELECT MAX(total_deaths) FROM PortfolioProject.CovidDeaths;
+SELECT AVG(total_deaths) FROM PortfolioProject.CovidDeaths;
+
 -- Countries with Highest Death Count per Population
 
 SELECT Location, MAX(total_deaths) AS TotalDeathCount 
