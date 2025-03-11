@@ -38,3 +38,35 @@ JOIN PortfolioProject.CovidVaccinations vac
 -- Retrieve Data from the Temporary Table
 SELECT *, (RollingPeopleVaccinated / Population) * 100 AS PercentVaccinated
 FROM #PercentPopulationVaccinated;
+
+--  Rolling Sum for New Cases & Deaths
+
+WITH RollingCasesDeaths AS (
+    SELECT 
+        dea.continent, 
+        dea.location, 
+        dea.date, 
+        dea.population, 
+        dea.new_cases, 
+        dea.new_deaths,
+        SUM(dea.new_cases) OVER (PARTITION BY dea.location ORDER BY dea.date) AS RollingTotalCases,
+        SUM(dea.new_deaths) OVER (PARTITION BY dea.location ORDER BY dea.date) AS RollingTotalDeaths
+    FROM PortfolioProject.CovidDeaths dea
+    WHERE dea.continent IS NOT NULL
+)
+SELECT *, (RollingTotalCases / NULLIF(population, 0)) * 100 AS InfectionRate
+FROM RollingCasesDeaths;
+
+-- 7-Day Average for Reproduction Rate
+
+WITH RollingReproduction AS (
+    SELECT 
+        location, 
+        date, 
+        reproduction_rate,
+        AVG(reproduction_rate) OVER (PARTITION BY location ORDER BY date ROWS BETWEEN 6 PRECEDING AND CURRENT ROW) AS RollingAvgReproduction
+    FROM PortfolioProject.CovidDeaths
+    WHERE reproduction_rate IS NOT NULL
+)
+SELECT * FROM RollingReproduction;
+
